@@ -13,12 +13,12 @@ class Flat(models.Model):
 
 class Application(models.Model):
 	"""student applicants model"""
-	flat_number = model.CharField(max_length=10)
-	student_number = model.CharField(max_length=10)
-	mobile_number = model.CharField(max_length=20)
-	email_address = model.CharField(max_length=20)
-	gender = model.CharField(max_length=10)
-	data_of_application = model.DateTimeField('date applied')
+	flat_number = models.CharField(max_length=10)
+	student_number = models.CharField(max_length=10)
+	mobile_number = models.CharField(max_length=20)
+	email_address = models.CharField(max_length=20)
+	gender = models.CharField(max_length=10)
+	data_of_application = models.DateTimeField('date applied')
 
 	def __unicode__(self):
 		return self.student_number
