@@ -1,0 +1,27 @@
+LBG room Allocation Views
+
+Landing
+
+	Floors 
+		- Pick from 1 - 6 as per the university building
+
+	
+	Rooms 
+		- Display all available rooms per choosen floor.
+	
+	Rooms Details 
+		- Type of flat, BCA, TIT, TID, FIF
+		- Who has applied for this room?
+		- Who will be staying on the other room.
+
+	Application Sent
+		- ACKN sent application.
+
+
+URL's
+
+	/floors/
+	/flat/
+	/apply/
+	/confirmation/
+	/login/
