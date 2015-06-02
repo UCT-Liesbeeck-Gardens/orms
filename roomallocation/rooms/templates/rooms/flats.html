@@ -1,0 +1,12 @@
+
+{% if residence_flats %}
+	<ul>
+	{% for flat in residence_flats %}
+		<li> <a href="./{{flat}}"> {{flat}}</a></li>
+		{% endfor %}
+	</ul>
+
+{% else %}
+	<p>No rooms are available on this floor.</p>
+{% endif %}
+
