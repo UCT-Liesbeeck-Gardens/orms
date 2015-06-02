@@ -1,0 +1,15 @@
+
+{% if residence_floors %}
+	<ul>
+	{% for floor in residence_floors %}
+		<li> <a href="/floor/{{floor}}/"> floor {{floor}}</a></li>
+		{% endfor %}
+	</ul>
+
+{% else %}
+	<p>No rooms are available.</p>
+{% endif %}
+
+
+
+
