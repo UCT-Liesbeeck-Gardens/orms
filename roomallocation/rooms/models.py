@@ -1,8 +1,14 @@
 from django.db import models
 
+class Floor(models.Model):
+	floor = models.IntegerField()
+
+	def __unicode__(self):
+		return self.floor
+
 class Flat(models.Model):
 	"""building/flat model"""
-	flat_floor = models.CharField(max_length=10)
+	flat_floor = models.ForeignKey(Floor)
 	flat_number = models.CharField(max_length=10)
 	room_number = models.CharField(max_length=10)
 	flat_type = models.CharField(max_length=10)
@@ -22,4 +28,3 @@ class Application(models.Model):
 
 	def __unicode__(self):
 		return self.student_number
-		
