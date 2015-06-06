@@ -1,1 +1,25 @@
-{{flat}}
+{{flat.all.0.0}}
+
+<h1>{{ flat.flat_id }}</h1>
+
+
+
+<form action="/application/confirmation/" method="post">
+    <label for="your_name">Name: </label>
+    <input id="your_name" type="text" name="your_name" value="{{ current_name }}">
+
+ <p> </p>
+
+    <label for="student_number">Student Number: </label>
+    <input id="student_number" type="text" name="student_number" value="{{ student_number }}">
+
+ <p> </p>
+    <label for="mobile_number">Mobile Number: </label>
+   
+    <input id="mobile_number" type="text" name="mobile_number" value="{{ mobile_number }}">
+ <p> </p>
+    <input type="submit" value="Apply">
+
+
+
+</form>

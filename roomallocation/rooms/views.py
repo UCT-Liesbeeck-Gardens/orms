@@ -25,5 +25,11 @@ def floor(request, flat_floor_id):
 		})
 	return HttpResponse(template.render(context))
 
-def flat(request, flat_floor_id, flat_room_id):
-	return HttpResponse("Displays the specific flat/room")
+def flat(request, flat_floor_id, flat_number):
+
+	flat = Flat.objects.filter(flat_floor_id=flat_floor_id, flat_number=flat_number )
+	template = loader.get_template('rooms/flat_detail.html')
+	context = RequestContext(request, {
+		'flat': flat,
+		})
+	return HttpResponse(template.render(context))
