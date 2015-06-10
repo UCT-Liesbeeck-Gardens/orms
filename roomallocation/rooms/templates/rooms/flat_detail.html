@@ -4,22 +4,26 @@
 
 
 
-<form action="/application/confirmation/" method="post">
-    <label for="your_name">Name: </label>
-    <input id="your_name" type="text" name="your_name" value="{{ current_name }}">
+<form action="./application/confirmation/" method="post">
+{% csrf_token %}
+  <p>
+    <label for="name">Name: </label>
+    <input id="name" type="text" name="name" value="{{ name }}">
 
- <p> </p>
+ </p>
 
+
+ <p>
     <label for="student_number">Student Number: </label>
     <input id="student_number" type="text" name="student_number" value="{{ student_number }}">
+ </p>
 
- <p> </p>
+
+ <p>
     <label for="mobile_number">Mobile Number: </label>
    
     <input id="mobile_number" type="text" name="mobile_number" value="{{ mobile_number }}">
- <p> </p>
+ </p>
     <input type="submit" value="Apply">
-
-
 
 </form>
