@@ -15,11 +15,12 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('flat_number', models.CharField(max_length=10)),
+                ('name', models.CharField(max_length=20)),
                 ('student_number', models.CharField(max_length=10)),
                 ('mobile_number', models.CharField(max_length=20)),
                 ('email_address', models.CharField(max_length=20)),
                 ('gender', models.CharField(max_length=10)),
-                ('data_of_application', models.DateTimeField(verbose_name=b'date applied')),
+                ('date_of_application', models.DateTimeField(verbose_name=b'date applied')),
             ],
         ),
         migrations.CreateModel(
