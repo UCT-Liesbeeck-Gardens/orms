@@ -20,6 +20,7 @@ class Flat(models.Model):
 class Application(models.Model):
 	"""student applicants model"""
 	flat_number = models.CharField(max_length=10)
+	name = models.CharField(max_length=20)
 	student_number = models.CharField(max_length=10)
 	mobile_number = models.CharField(max_length=20)
 	email_address = models.CharField(max_length=20)
