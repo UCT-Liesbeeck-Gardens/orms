@@ -23,9 +23,9 @@ class Application(models.Model):
 	name = models.CharField(max_length=20)
 	student_number = models.CharField(max_length=10)
 	mobile_number = models.CharField(max_length=20)
-	email_address = models.CharField(max_length=20)
+	email_address = models.CharField(max_length=100)
 	gender = models.CharField(max_length=10)
-	data_of_application = models.DateTimeField('date applied')
+	date_of_application = models.DateTimeField('date applied')
 
 	def __unicode__(self):
 		return self.student_number
