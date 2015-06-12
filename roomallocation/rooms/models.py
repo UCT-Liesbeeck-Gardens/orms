@@ -1,7 +1,7 @@
 from django.db import models
 
 class Floor(models.Model):
-	floor = models.IntegerField()
+	floor = models.IntegerField(unique=True)
 
 	def __unicode__(self):
 		return self.floor
