@@ -20,8 +20,8 @@ Landing
 
 URL's
 
-	/floors/
-	/flat/
-	/apply/
-	/confirmation/
+	/
+	/floor/				-->		floor/01/
+	/flat/				-->		floor/01/234/
+	/confirmation/		-->		floor/02/324/confirmation
 	/login/
