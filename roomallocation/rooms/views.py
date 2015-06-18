@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 from django.template import RequestContext, loader
 
 from .models import Flat, Floor, Application
 from datetime import datetime
+from django.contrib import auth
 
 
 # Create your views here.
@@ -54,3 +55,50 @@ def apply(request, flat_floor_id, flat_number):
 			'flat': flat,
 			})
 	return HttpResponse(template.render(context))
+
+
+def login(request):
+
+	template = loader.get_template('registration/login.html')
+	context = RequestContext(request,{ 
+		'login': login,
+		})
+	return HttpResponse(template.render(context))
+
+
+def supervisor(request):
+	if not request.user.is_authenticated():
+		return HttpResponse(loader.get_template('admin/admin_index.html').render()) 	
+
+
+def logout(request):
+ 	auth.logout(request)
+ 	# Redirect to a success page.
+ 	return HttpResponse(loader.get_template('admin/admin_index.html').render())
+
+
+def authenticate(request):
+	if request.method == 'POST':
+ 		username = request.POST['username']
+ 		password = request.POST['password']
+ 		user = auth.authenticate(username=username, password=password)
+ 		template = loader.get_template('admin/admin_index.html')
+ 		context = RequestContext(request,{
+ 			'user':user,
+ 			})
+ 		if user is not None and user.is_active:
+ 			# Correct password, and the user is marked "active"
+ 			auth.login(request, user)
+ 			# Redirect to a success page.
+ 			return HttpResponse(template.render(context))
+
+ 		# if user is not None and user.is_active:
+ 		# 	# Correct password, and the user is marked "active"
+ 		# 	auth.login(request, user)
+ 		# 	# Redirect to a success page.
+ 		# 	return HttpResponseRedirect("/supervisor/")
+ 		# else:
+ 		# 	# Show an error page
+ 		# 	return HttpResponseRedirect("/login/")
+ 	if request.method == 'GET':
+ 		return HttpResponseRedirect("/login/")

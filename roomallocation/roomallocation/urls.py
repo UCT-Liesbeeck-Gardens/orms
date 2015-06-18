@@ -15,11 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from rooms.views import login, logout, authenticate
 
 urlpatterns = [
 
     url(r'^floor/', include('rooms.urls')),
-#    url(r'^flat/', include('rooms.urls')),
     url(r'^admin/', include(admin.site.urls)),
-	
+    url(r'^login/$', login),
+    url(r'^authenticate/$', authenticate),
+    url(r'^logout/$', logout),
+
+
 ]
