@@ -1,0 +1,12 @@
+
+{% if residence_applications %}
+	<ul>
+	{% for application in residence_applications %}
+		<li> <a href="./{{application}}"> {{application}}</a></li>
+		{% endfor %}
+	</ul>
+
+{% else %}
+	<p>No applications are available at this point.</p>
+{% endif %}
+
