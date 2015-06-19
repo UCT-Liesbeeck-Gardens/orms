@@ -92,13 +92,22 @@ def authenticate(request):
  			# Redirect to a success page.
  			return HttpResponse(template.render(context))
 
- 		# if user is not None and user.is_active:
- 		# 	# Correct password, and the user is marked "active"
- 		# 	auth.login(request, user)
- 		# 	# Redirect to a success page.
- 		# 	return HttpResponseRedirect("/supervisor/")
- 		# else:
- 		# 	# Show an error page
- 		# 	return HttpResponseRedirect("/login/")
+ 	#redirect on accessing the url directly
  	if request.method == 'GET':
  		return HttpResponseRedirect("/login/")
+
+def applications(request):
+	residence_applications = Application.objects.values_list('flat_number','student_number','gender')
+	template = loader.get_template('admin/applications.html')
+	context = RequestContext(request,{ 
+		'residence_applications': residence_applications,
+		})
+	return HttpResponse(template.render(context))
+
+def application_details(request, flat_number, student_number):
+	application_details = Application.objects.filter(flat_number=flat_number, student_number=student_number).values_list('flat_number', 'name', 'student_number', 'mobile_number','gender','date_of_application')
+	template = loader.get_template('admin/application_details.html')
+	context = RequestContext(request, {
+		'application_details': application_details,
+			})
+	return HttpResponse(template.render(context))
