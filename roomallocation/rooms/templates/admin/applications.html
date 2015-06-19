@@ -2,7 +2,7 @@
 {% if residence_applications %}
 	<ul>
 	{% for application in residence_applications %}
-		<li> <a href="./{{application}}"> {{application}}</a></li>
+		<li> <a href="./{{application.0}}/{{application.1}}"> {{application.0}} | {{application.1}} | {{application.2}}</a></li>
 		{% endfor %}
 	</ul>
 
