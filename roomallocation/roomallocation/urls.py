@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from rooms.views import login, logout, authenticate
+from rooms.views import login, logout, authenticate, applications, application_details
 
 urlpatterns = [
 
@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/$', login),
     url(r'^authenticate/$', authenticate),
+    url(r'^authenticate/applications/$', applications),
+    url(r'^authenticate/applications/(?P<flat_number>[a-z0-9]+)/(?P<student_number>[a-z0-9]+)/$', application_details),
     url(r'^logout/$', logout),
-
-
 ]
