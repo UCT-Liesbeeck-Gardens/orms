@@ -42,3 +42,16 @@ class Approval(models.Model):
 
 	def __unicode__(self):
 		return self.student_number
+
+class Decline(models.Model):
+	"""applications declines model"""
+	flat_number = models.CharField(max_length=10)
+	name = models.CharField(max_length=20)
+	student_number = models.CharField(max_length=10)
+	mobile_number = models.CharField(max_length=20)
+	email_address = models.CharField(max_length=100)
+	gender = models.CharField(max_length=10)
+	date_of_decline = models.DateTimeField('date declined')
+
+	def __unicode__(self):
+		return self.student_number
