@@ -116,6 +116,7 @@ def approve_application(request, flat_number, student_number):
 	approve_application = Application.objects.filter(flat_number=flat_number, student_number=student_number).values_list('flat_number', 'name','student_number', 'mobile_number', 'email_address','gender')
 	anobject = Approval(flat_number=approve_application[0][0], name=approve_application[0][1], student_number=approve_application[0][2], mobile_number=approve_application[0][3], email_address=approve_application[0][4],gender=approve_application[0][5], date_of_approval=datetime.now())
 	anobject.save()
+	Application.objects.filter(flat_number=flat_number, student_number=student_number).delete()
 	template = loader.get_template('admin/approve_application.html')
 	context = RequestContext(request,{
 		'anobject':anobject,
@@ -126,6 +127,7 @@ def decline_application(request, flat_number, student_number):
 	decline_application = Application.objects.filter(flat_number=flat_number, student_number=student_number).values_list('flat_number', 'name','student_number', 'mobile_number', 'email_address','gender')
 	anobject = Decline(flat_number=decline_application[0][0], name=decline_application[0][1], student_number=decline_application[0][2], mobile_number=decline_application[0][3], email_address=decline_application[0][4],gender=decline_application[0][5], date_of_decline=datetime.now())
 	anobject.save()
+	Application.objects.filter(flat_number=flat_number, student_number=student_number).delete()
 	template = loader.get_template('admin/decline_application.html')
 	context = RequestContext(request,{
 		'anobject':anobject,
