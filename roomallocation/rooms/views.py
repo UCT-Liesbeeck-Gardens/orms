@@ -58,17 +58,11 @@ def apply(request, flat_floor_id, flat_number):
 
 
 def login(request):
-
 	template = loader.get_template('registration/login.html')
 	context = RequestContext(request,{ 
 		'login': login,
 		})
 	return HttpResponse(template.render(context))
-
-
-def supervisor(request):
-	if not request.user.is_authenticated():
-		return HttpResponse(loader.get_template('admin/admin_index.html').render()) 	
 
 
 def logout(request):
@@ -97,39 +91,51 @@ def authenticate(request):
  		return HttpResponseRedirect("/login/")
 
 def applications(request):
-	residence_applications = Application.objects.values_list('flat_number','student_number','gender')
-	template = loader.get_template('admin/applications.html')
-	context = RequestContext(request,{ 
-		'residence_applications': residence_applications,
-		})
-	return HttpResponse(template.render(context))
+	if request.user.is_authenticated():
+		residence_applications = Application.objects.values_list('flat_number','student_number','gender')
+		template = loader.get_template('admin/applications.html')
+		context = RequestContext(request,{ 
+			'residence_applications': residence_applications,
+			})
+		return HttpResponse(template.render(context))
+	else:
+		return HttpResponseRedirect("/login/")
 
 def application_details(request, flat_number, student_number):
-	application_details = Application.objects.filter(flat_number=flat_number, student_number=student_number).values_list('flat_number', 'name', 'student_number', 'mobile_number','gender','date_of_application')
-	template = loader.get_template('admin/application_details.html')
-	context = RequestContext(request, {
-		'application_details': application_details,
-		})
-	return HttpResponse(template.render(context))
+	if request.user.is_authenticated():
+		application_details = Application.objects.filter(flat_number=flat_number, student_number=student_number).values_list('flat_number', 'name', 'student_number', 'mobile_number','gender','date_of_application')
+		template = loader.get_template('admin/application_details.html')
+		context = RequestContext(request, {
+			'application_details': application_details,
+			})
+		return HttpResponse(template.render(context))
+	else:
+		return HttpResponseRedirect("/login/")
 
 def approve_application(request, flat_number, student_number):
-	approve_application = Application.objects.filter(flat_number=flat_number, student_number=student_number).values_list('flat_number', 'name','student_number', 'mobile_number', 'email_address','gender')
-	anobject = Approval(flat_number=approve_application[0][0], name=approve_application[0][1], student_number=approve_application[0][2], mobile_number=approve_application[0][3], email_address=approve_application[0][4],gender=approve_application[0][5], date_of_approval=datetime.now())
-	anobject.save()
-	Application.objects.filter(flat_number=flat_number, student_number=student_number).delete()
-	template = loader.get_template('admin/approve_application.html')
-	context = RequestContext(request,{
-		'anobject':anobject,
-		})
-	return HttpResponse(template.render(context))
+	if request.user.is_authenticated():
+		approve_application = Application.objects.filter(flat_number=flat_number, student_number=student_number).values_list('flat_number', 'name','student_number', 'mobile_number', 'email_address','gender')
+		anobject = Approval(flat_number=approve_application[0][0], name=approve_application[0][1], student_number=approve_application[0][2], mobile_number=approve_application[0][3], email_address=approve_application[0][4],gender=approve_application[0][5], date_of_approval=datetime.now())
+		anobject.save()
+		Application.objects.filter(flat_number=flat_number, student_number=student_number).delete()
+		template = loader.get_template('admin/approve_application.html')
+		context = RequestContext(request,{
+			'anobject':anobject,
+			})
+		return HttpResponse(template.render(context))
+	else:
+		return HttpResponseRedirect("/login/")
 
 def decline_application(request, flat_number, student_number):
-	decline_application = Application.objects.filter(flat_number=flat_number, student_number=student_number).values_list('flat_number', 'name','student_number', 'mobile_number', 'email_address','gender')
-	anobject = Decline(flat_number=decline_application[0][0], name=decline_application[0][1], student_number=decline_application[0][2], mobile_number=decline_application[0][3], email_address=decline_application[0][4],gender=decline_application[0][5], date_of_decline=datetime.now())
-	anobject.save()
-	Application.objects.filter(flat_number=flat_number, student_number=student_number).delete()
-	template = loader.get_template('admin/decline_application.html')
-	context = RequestContext(request,{
-		'anobject':anobject,
-		})
-	return HttpResponse(template.render(context))
+	if request.user.is_authenticated():
+		decline_application = Application.objects.filter(flat_number=flat_number, student_number=student_number).values_list('flat_number', 'name','student_number', 'mobile_number', 'email_address','gender')
+		anobject = Decline(flat_number=decline_application[0][0], name=decline_application[0][1], student_number=decline_application[0][2], mobile_number=decline_application[0][3], email_address=decline_application[0][4],gender=decline_application[0][5], date_of_decline=datetime.now())
+		anobject.save()
+		Application.objects.filter(flat_number=flat_number, student_number=student_number).delete()
+		template = loader.get_template('admin/decline_application.html')
+		context = RequestContext(request,{
+			'anobject':anobject,
+			})
+		return HttpResponse(template.render(context))
+	else:
+		return HttpResponseRedirect("/login/")
